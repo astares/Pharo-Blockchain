@@ -38,6 +38,12 @@ Block >> data: anObject [
 	data := anObject
 ]
 
+{ #category : 'comparing' }
+Block >> hash [
+
+	 ^ hash ifNil: [ hash := self calculateHash ]
+]
+
 { #category : 'accessing' }
 Block >> hash: anObject [
 
