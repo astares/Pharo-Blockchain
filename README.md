@@ -6,7 +6,7 @@
 [![Pharo 12](https://img.shields.io/badge/Pharo-12-%23aac9ff.svg)](https://pharo.org/download)
 
 # Pharo-Blockchain
-A minimalistic blockchain written in Pharo
+A minimalistic blockchain written in [Pharo](https://www.pharo.org)
 
 ## Quick Start
 ### Install
