@@ -1,20 +1,41 @@
-# Pharo-Blockchain
-A minimalistic blockchain written in Pharo
+[![Pharo 7](https://img.shields.io/badge/Pharo-7.0-%23aac9ff.svg)](https://pharo.org/download)
+[![Pharo 8](https://img.shields.io/badge/Pharo-8.0-%23aac9ff.svg)](https://pharo.org/download)
+[![Pharo 9](https://img.shields.io/badge/Pharo-9.0-%23aac9ff.svg)](https://pharo.org/download)
+[![Pharo 10](https://img.shields.io/badge/Pharo-10-%23aac9ff.svg)](https://pharo.org/download)
+[![Pharo 11](https://img.shields.io/badge/Pharo-11-%23aac9ff.svg)](https://pharo.org/download)
+[![Pharo 12](https://img.shields.io/badge/Pharo-12-%23aac9ff.svg)](https://pharo.org/download)
 
+# Pharo-Blockchain
+A minimalistic blockchain written in [Pharo](https://www.pharo.org)
+
+## Quick Start
+### Install
+
+You can install **Blockchain** by executing the following load scripts:
+
+```Smalltalk
+Metacello new 
+	repository: 'github://astares/Pharo-Blockchain:main/src';
+	baseline: 'Blockchain';
+	load 	
+```	
+
+### Use the blockchain
 ```Smalltalk
 | blockchain |
 blockchain := Blockchain new.
-blockchain addBlock: (Block new data: 'First Block').
-blockchain addBlock: (Block new data: 'Second Block').
+"Add some data"
+blockchain addNewBlockWithData: 'First Block'.
+blockchain addNewBlockWithData: 'Second Block'.
 self assert: blockchain isValid.
-	
-"Manipulation"
+
+"Manipulate the data"
 blockchain chain second data: 'Manipulated'.	
 self deny: blockchain isValid
 ```
 
 
-!Implementation
+## Implementation
 
 The **Blockchain class** represents individual blocks in the chain. Each block has:
 - an index
