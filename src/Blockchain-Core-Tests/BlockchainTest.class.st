@@ -43,6 +43,20 @@ BlockchainTest >> testGenesisBlock [
 ]
 
 { #category : 'tests' }
+BlockchainTest >> testManipulation [
+
+	| blockchain |
+	blockchain := Blockchain new.
+	blockchain addNewBlockWithData: 'First Block'.
+	blockchain addNewBlockWithData: 'Second Block'.
+	self assert: blockchain isValid.
+	
+	"Manipulate the data"
+	blockchain chain second data: 'Manipulated'.	
+	self deny: blockchain isValid
+]
+
+{ #category : 'tests' }
 BlockchainTest >> testNoGenesisBlock [ 
 
 	|blockchain genesisBlock|
