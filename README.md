@@ -8,6 +8,19 @@
 # Pharo-Blockchain
 A minimalistic blockchain written in Pharo
 
+## Quick Start
+### Install
+
+You can install **Blockchain** by executing the following load scripts:
+
+```Smalltalk
+Metacello new 
+	repository: 'github://astares/Pharo-Blockchain:main/src';
+	baseline: 'Blockchain';
+	load 	
+```	
+
+### Use the blockchain
 ```Smalltalk
 | blockchain |
 blockchain := Blockchain new.
@@ -21,7 +34,7 @@ self deny: blockchain isValid
 ```
 
 
-!Implementation
+## Implementation
 
 The **Blockchain class** represents individual blocks in the chain. Each block has:
 - an index
