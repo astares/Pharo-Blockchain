@@ -80,6 +80,18 @@ Block >> previousHash: anObject [
 	previousHash := anObject
 ]
 
+{ #category : 'printing' }
+Block >> printOn: aStream [
+
+	self timestamp printOn: aStream
+]
+
+{ #category : 'calculation' }
+Block >> rehash [
+
+    ^ self hash: self calculateHash 
+]
+
 { #category : 'accessing' }
 Block >> timestamp [
 

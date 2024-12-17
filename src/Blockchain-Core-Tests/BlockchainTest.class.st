@@ -23,3 +23,33 @@ BlockchainTest >> testBlockChain [
 	self deny: blockchain isValid
 
 ]
+
+{ #category : 'tests' }
+BlockchainTest >> testGenesisBlock [ 
+
+	|blockchain genesisBlock|
+	blockchain := Blockchain initialData: 'Genesis data'.
+	genesisBlock := blockchain genesisBlock.
+
+	self 
+		assert: genesisBlock notNil;
+		assert: genesisBlock data equals: 'Genesis data'.	
+
+	genesisBlock timestamp: (DateAndTime fromUnixTime: 1465154705).
+	
+	genesisBlock rehash.
+
+	self assert: genesisBlock hash equals: 'a5b77a1755b584b3abd9c5b9179b5b086ad9d403f809f1319eff80915495158d'
+]
+
+{ #category : 'tests' }
+BlockchainTest >> testNoGenesisBlock [ 
+
+	|blockchain genesisBlock|
+	blockchain := Blockchain new.
+	genesisBlock := blockchain genesisBlock.
+
+	self assert: blockchain isEmpty.
+	self assert: genesisBlock isNil
+ 
+]

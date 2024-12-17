@@ -12,22 +12,35 @@ Class {
 	#tag : 'Base'
 }
 
-{ #category : 'initialization' }
+{ #category : 'instance creation' }
+Blockchain class >> initialData: aString [ 
+	^(self new)
+		addNewBlockWithData: aString;
+		yourself
+]
+
+{ #category : 'private' }
 Blockchain >> addBlock: newBlock [
+	chain ifEmpty: [ 
+		newBlock 
+			index: 1;
+			previousHash: ''.			
+		 ]
+	
+	 ifNotEmpty: [ 
     newBlock
-        index: self latestBlock index + 1;
-        previousHash: self latestBlock hash.
-    chain add: newBlock
+        index: self lastBlock index + 1;
+        previousHash: self lastBlock hash ].
+
+	newBlock rehash.
+   chain add: newBlock
 ]
 
 { #category : 'initialization' }
-Blockchain >> addGenesisBlock [
-    | genesisBlock |
-    genesisBlock := Block new
-        index: 0;
-        previousHash: '0';
-        data: 'Genesis Block'.
-    chain add: genesisBlock
+Blockchain >> addNewBlockWithData: data [
+    | block |
+    block := Block new data: data.
+    ^ self addBlock: block
 ]
 
 { #category : 'accessing' }
@@ -42,14 +55,27 @@ Blockchain >> chain: anObject [
 	chain := anObject
 ]
 
-{ #category : 'initialization' }
-Blockchain >> initialize [
-    super initialize.
-    chain := OrderedCollection new.
-    self addGenesisBlock
+{ #category : 'accessing' }
+Blockchain >> genesisBlock [
+	"Return the genesis block or nil for an empty chain"
+
+	self chain ifEmpty: [ ^ nil ].	
+	^ self chain first	
 ]
 
 { #category : 'initialization' }
+Blockchain >> initialize [
+    super initialize.
+    chain := OrderedCollection new
+]
+
+{ #category : 'testing' }
+Blockchain >> isEmpty [
+
+	^ chain isEmptyOrNil 
+]
+
+{ #category : 'testing' }
 Blockchain >> isValid [
     2 to: chain size do: [ :i |
         | currentBlock previousBlock |
@@ -62,7 +88,7 @@ Blockchain >> isValid [
     ^ true
 ]
 
-{ #category : 'initialization' }
-Blockchain >> latestBlock [
+{ #category : 'accessing' }
+Blockchain >> lastBlock [
     ^ chain last
 ]
