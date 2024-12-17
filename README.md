@@ -24,11 +24,12 @@ Metacello new
 ```Smalltalk
 | blockchain |
 blockchain := Blockchain new.
-blockchain addBlock: (Block new data: 'First Block').
-blockchain addBlock: (Block new data: 'Second Block').
+"Add some data"
+blockchain addNewBlockWithData: 'First Block'.
+blockchain addNewBlockWithData: 'Second Block'.
 self assert: blockchain isValid.
-	
-"Manipulation"
+
+"Manipulate the data"
 blockchain chain second data: 'Manipulated'.	
 self deny: blockchain isValid
 ```
